@@ -6,8 +6,9 @@
 package security
 
 import (
-	"github.com/unidoc/unipdf/v3/common"
 	"testing"
+
+	"github.com/mgmeyers/unipdf/v3/common"
 )
 
 func init() {

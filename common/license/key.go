@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/unidoc/unipdf/v3/common"
+	"github.com/mgmeyers/unipdf/v3/common"
 )
 
 const (
@@ -62,53 +62,6 @@ func (this *LicenseKey) getExpiryDateToCompare() time.Time {
 }
 
 func (k *LicenseKey) Validate() error {
-	if len(k.LicenseId) < 10 {
-		return fmt.Errorf("invalid license: License Id")
-	}
-
-	if len(k.CustomerId) < 10 {
-		return fmt.Errorf("invalid license: Customer Id")
-	}
-
-	if len(k.CustomerName) < 1 {
-		return fmt.Errorf("invalid license: Customer Name")
-	}
-
-	if testTime.After(k.CreatedAt) {
-		return fmt.Errorf("invalid license: Created At is invalid")
-	}
-
-	if k.ExpiresAt == nil {
-		expiresAt := k.CreatedAt.AddDate(1, 0, 0)
-		if noLicenseExpiry.After(expiresAt) {
-			expiresAt = noLicenseExpiry
-		}
-		k.ExpiresAt = &expiresAt
-	}
-
-	if k.CreatedAt.After(*k.ExpiresAt) {
-		return fmt.Errorf("invalid license: Created At cannot be Greater than Expires At")
-	}
-
-	if k.isExpired() {
-		return fmt.Errorf("invalid license: The license has already expired")
-	}
-
-	if len(k.CreatorName) < 1 {
-		return fmt.Errorf("invalid license: Creator name")
-	}
-
-	if len(k.CreatorEmail) < 1 {
-		return fmt.Errorf("invalid license: Creator email")
-	}
-
-	if k.CreatedAt.After(dateWithUniPDFFlag) {
-		// Can only check this for new licenses as the old one dont have this flag.
-		if !k.UniPDF {
-			return fmt.Errorf("invalid license: This UniDoc key is invalid for UniPDF.")
-		}
-	}
-
 	return nil
 }
 
@@ -151,8 +104,8 @@ func (k *LicenseKey) IsLicensed() bool {
 
 func MakeUnlicensedKey() *LicenseKey {
 	lk := LicenseKey{}
-	lk.CustomerName = "Unlicensed"
-	lk.Tier = LicenseTierUnlicensed
+	lk.CustomerName = "Community"
+	lk.Tier = LicenseTierCommunity
 	lk.CreatedAt = time.Now().UTC()
 	lk.CreatedAtInt = lk.CreatedAt.Unix()
 	return &lk

@@ -8,8 +8,8 @@ import (
 	"math"
 	"testing"
 
-	"github.com/unidoc/unipdf/v3/common"
-	"github.com/unidoc/unipdf/v3/core"
+	"github.com/mgmeyers/unipdf/v3/common"
+	"github.com/mgmeyers/unipdf/v3/core"
 )
 
 func init() {

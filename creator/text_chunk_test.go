@@ -8,8 +8,8 @@ package creator
 import (
 	"testing"
 
+	"github.com/mgmeyers/unipdf/v3/model"
 	"github.com/stretchr/testify/require"
-	"github.com/unidoc/unipdf/v3/model"
 )
 
 func TestTextChunkWrap(t *testing.T) {

@@ -15,8 +15,8 @@ import (
 	"fmt"
 	"hash"
 
-	"github.com/unidoc/unipdf/v3/core"
-	"github.com/unidoc/unipdf/v3/model"
+	"github.com/mgmeyers/unipdf/v3/core"
+	"github.com/mgmeyers/unipdf/v3/model"
 )
 
 // SignFunc represents a custom signing function. The function should return
