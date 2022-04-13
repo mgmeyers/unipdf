@@ -15,6 +15,7 @@ import (
 
 	"github.com/mgmeyers/unipdf/v3/common"
 	"github.com/mgmeyers/unipdf/v3/internal/strutils"
+	"github.com/softlandia/cpd"
 )
 
 // PdfObject is an interface which all primitive PDF objects must implement.
@@ -167,6 +168,17 @@ func MakeFloat(val float64) *PdfObjectFloat {
 // string.
 func MakeString(s string) *PdfObjectString {
 	str := PdfObjectString{val: s}
+
+	if len(s) > 2 {
+		if s[0] == 0xFE && s[1] == 0xFF {
+			decoded := cpd.DecodeUTF16be(s)
+			str = PdfObjectString{val: decoded}
+		} else if s[0] == 0xFF && s[1] == 0xFE {
+			decoded := cpd.DecodeUTF16le(s)
+			str = PdfObjectString{val: decoded}
+		}
+	}
+
 	return &str
 }
 
